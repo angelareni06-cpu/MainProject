@@ -13,6 +13,8 @@ def Homepage(request):
         return render(request,'Reporter/HomePage.html')
     else:
         return render(request,'Guest/Login.html')    
+    
+    
 
 def MyProfile(request):
     if "Rid" in request.session:
