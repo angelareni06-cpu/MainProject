@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Registration</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {%csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" required name="txt_name" id="txt_name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"/></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" required name="txt_email" id="txt_email"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" required name="txt_contact" id="txt_contact" pattern="[7-9]{1}[0-9]{9}" 
+                title="Phone number with 7-9 and remaing 9 digit with 0-9"></td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td><select name="sel_district" id="sel_district" required>
+                    <option value="">---select---</option>
+                    {% for i in district %}
+                    <option 
+                    value="{{i.id}}">{{i.district_name}}
+                </option>
+                {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><select name="sel_place" id="sel_place" required>
+                    <option value="">---select---</option>
+                </select></td>
+            </tr>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" required name="file_photo" id="file_photo"></td>
+            </tr>
+            <tr>
+                <td>Proof</td>
+                <td><input type="file" required name="file_proof" id="file_proof"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required name="txt_password" id="txt_password"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+                <td></td>
+            </tr>
+        </table>
+        <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Photo</td>
+                <td>Proof</td>
+                <td>Action</td>
+            </tr>
+            {% for i in editorData %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.editor_name}}</td>
+                <td>{{i.editor_email}}</td>
+                <td>{{i.editor_contact}}</td>
+                <td>{{i.place.district.district_name}}</td>
+                <td>{{i.place.place_name}}</td>
+                <td><img src="{{ i.editor_photo.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.editor_proof.url }}" width="100" alt=""></td>
+                <td><a href="{% url 'Admin:deleditor' i.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{msg}")
+    window.location="{% url 'Admin:editorregistration' %}";
+</script>
+{% endif %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+
+        var ur = "{% url 'Guest:ajaxplace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+
+ </script>

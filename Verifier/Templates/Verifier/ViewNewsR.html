@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewNews</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%csrf_token %}
+        <h1 align="center">View Reporter News</h1>
+         <table border="1" align="center" width="100" height="100">
+            <tr>
+                <td>Sl.No</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>Image</td>
+                <td>District</td>
+                <td>Category</td>
+                <td>Subcategory</td>
+                <td>Date</td>
+                <td>Reporter Details</td>
+                <td>Action</td>
+            </tr>
+            {% for i in news %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.news_title}}</td>
+                <td>{{i.news_content}}</td>
+                <td><img src="{{i.news_image.url}}" alt="" width="100" height="100"></td>
+                <td>{{i.reporter.place.district.district_name}}</td>
+                <td>{{i.subcategory.category.category_name}}</td>
+                <td>{{i.subcategory.subcategory_name}}</td>
+                <td>{{i.news_date}}</td>
+                <td>{{i.reporter.reporter_name}}</td>
+                <td>
+                    {% if i.news_status == 0 %}
+                    <a href="{% url 'Verifier:ViewRAccept' i.id %}">Accept/ <a href="{% url 'Verifier:ViewRReject' i.id %}">Reject</a></td>
+                    {% elif i.news_status == 1 %}
+                    Accepted 
+                    <a href="{% url 'Verifier:ViewRReject' i.id %}">Reject</a>
+
+                    {% elif i.news_status == 2 %}
+                    Rejected
+                    <a href="{% url 'Verifier:ViewRAccept' i.id %}">Accept</a>
+
+                    {% elif i.news_status == 3 %}
+                    Published
+
+                    {% endif  %}
+
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Verifier:ViewNewsR' %}";
+</script>
+{% endif %}

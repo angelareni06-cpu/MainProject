@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewVerifiedNews</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%csrf_token %}
+        <h3 align="center">Reporter News</h3>
+        <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>Image</td>
+                <td>District</td>
+                <td>Category</td>
+                <td>Subcategory</td>
+                <td>Date</td>
+                <td>Reporter Details</td>
+                <td>Action</td>
+            </tr>
+            {% for i in reporternews %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.news_title}}</td>
+                <td>{{i.news_content}}</td>
+                <td><img src="{{i.news_image.url}}" alt="" width="100" height="100"></td>
+                <td>{{i.reporter.place.district.district_name}}</td>
+                <td>{{i.subcategory.category.category_name}}</td>
+                <td>{{i.subcategory.subcategory_name}}</td>
+                <td>{{i.news_date}}</td>
+                <td>{{i.reporter.reporter_name}}</td>
+                <td><a href="{% url 'Editor:NewsUpdatesR' i.id %}">News Updates</a>
+                    <a href="{% url 'Editor:ViewFiles' i.id %}"> View Files</a>
+                    <a href="{% url 'Editor:PublishedNews' i.id %}">Publish</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+            </table>
+
+            <h3 align="center">Freelancer News</h3>
+            <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>Image</td>
+                <td>District</td>
+                <td>Category</td>
+                <td>Subcategory</td>
+                <td>Date</td>
+                <td>Freelancer Details</td>
+                <td>Action</td>
+            </tr>
+            {% for i in freelancernews %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.news_title}}</td>
+                <td>{{i.news_content}}</td>
+                <td><img src="{{i.news_image.url}}" alt="" width="100" height="100"></td>
+                <td>{{i.user.place.district.district_name}}</td>
+                <td>{{i.subcategory.category.category_name}}</td>
+                <td>{{i.subcategory.subcategory_name}}</td>
+                <td>{{i.news_date}}</td>
+                <td>{{i.user.user_name}}</td>
+                <td><a href="{% url 'Editor:NewsUpdatesR' i.id %}">News Updates</a>
+                    <a href="{% url 'Editor:ViewFiles' i.id %}">View Files</a>
+                    <a href="{% url 'Editor:FPublishedNews' i.id %}">Publish</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+    </form>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Editor:ViewVerifiednews' %}";
+</script>
+{% endif %}

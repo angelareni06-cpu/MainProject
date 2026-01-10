@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>Freelancer Type</td>
+                <td><select name="sel_freelancertype" id="sel_freelancertype">
+                    <option value="">--select--</option>
+                    {% for i in freelancer %}
+                    <option value="{{i.id}}">{{i.freelancer_type}}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <td>Skill</td>
+                <td><input type="text" name="txt_skill" id="txt_skill"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <table border="1" align="center">
+        <tr>
+            <td>Sl.No</td>
+            <td>freelancer Type</td>
+            <td>Skill Type</td>
+            <td>Action</td>
+        </tr>
+        {% for i in skilltype %}
+         <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.freelancer_type.freelancer_type}}</td>
+            <td>{{i.skill_type}}</td>
+            <td><a href="{% url 'Admin:delskill' i.id %}">Delete</td>
+        </tr>
+        {% endfor %}
+</body>
+  {% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Admin:SkillType' %}";
+</script>
+    {% endif %}
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewComplaint</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%csrf_token %}
+        <h3 align="center">Freelancers Complaints</h3>
+        <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Freelancer</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>Action</td>
+            </tr>
+            {% for i in complaintdata %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.user_id.user_name}}</td>
+                <td>{{i.complaint_title}}</td>
+                <td>{{i.complaint_content}}</td>
+                <td><a href="{% url 'Admin:Reply' i.id %}">Reply</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <h3 align="center">Reporters Complaints</h3>
+     <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Reporter</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>Action</td>
+            </tr>
+            {% for i in Complaintdata %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.reporter_id.reporter_name}}</td>
+                <td>{{i.complaint_title}}</td>
+                <td>{{i.complaint_content}}</td>
+                <td><a href="{% url 'Admin:Reply' i.id %}">Reply</a></td>
+            </tr>
+            {% endfor %}
+    </table>
+</body>
+</html>
+{% if msg %}
+<script>
+alert("{{msg}}")
+window.location="{% url 'Admin:ViewComplaints' %}";
+</script>
+{% endif %}
+</html>

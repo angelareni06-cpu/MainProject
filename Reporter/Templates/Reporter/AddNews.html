@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsUpload</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {%csrf_token %}
+        <table border="1" align="center">
+        <tr>
+            <td>Title</td>
+            <td><input type="text" required name="txt_title" id="txt_title"></td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td><textarea name="txt_content" id="txt_content" required></textarea></td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td><input type="file" required name="file_image" id="file_image"></td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td><select name="sel_category" id="sel_category" required>
+                    <option value="">---select---</option>
+                    {% for i in category %}
+                    <option 
+                    value="{{i.id}}">{{i.category_name}}
+                </option>
+                {% endfor %}
+                </select></td>
+        </tr>
+        <tr>
+            <td>Subcategory</td>
+            <td><select name="sel_subcategory" id="sel_subcategory" required>
+             <option value="">---select---</option>   
+            </select></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+    <table border="1" align="center">
+        <tr>
+            <td>Sl.No</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>Image</td>
+            <td>Category</td>
+            <td>Subcategory</td>
+            <td>Date</td>
+            <td>Action</td>
+        </tr>
+        {% for i in NewsData %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.news_title}}</td>
+            <td>{{i.news_content}}</td>
+            <td><img src="{{i.news_image.url}}" alt="" width="100" height="100"></td>
+            <td>{{i.subcategory.category.category_name}}</td>
+            <td>{{i.subcategory.subcategory_name}}</td>
+            <td>{{i.news_date}}</td>
+            <td><a href="{% url 'Reporter:delnews' i.id %}">Delete  
+                <a href="{% url 'Reporter:UploadFiles' i.id %}">UploadFiles</a>
+                <a href="{% url 'Reporter:ViewUpdates' i.id %}">View Updates</a>
+            </td>
+        </tr>
+       {% endfor %}
+    </table>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Reporter:AddNews' %}";
+</script>
+{% endif %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_category").change(function () {
+        var cid = $(this).val();
+
+        var ur = "{% url 'User:AjaxSubcategory' %}"
+        $.ajax({
+            url: ur,
+            data: { cid: cid, },
+            success: function (data) {
+                $("#sel_subcategory").html(data);
+            },
+        });
+    });
+</script>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporter Verification</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1" align="center"><h1 align="center">Reporter Verification</h1>
+           
+            <tr>
+                <td>Sl.No</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>Gender</td>
+                <td>DOB</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Photo</td>
+                <td>Proof</td>
+                <td>Action</td>
+            </tr>
+           {% for i in pending %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.reporter_name}}</td>
+                <td>{{i.reporter_email}}</td>
+                <td>{{i.reporter_contact}}</td>
+                <td>{{i.reporter_gender}}</td>
+                <td>{{i.reporter_dob}}</td>
+                <td>{{i.reporter_address}}</td>
+                <td>{{i.place.district.district_name}}</td>
+                <td>{{i.place.place_name}}</td>
+                <td><img src="{{ i.reporter_photo.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.reporter_proof.url }}" width="100" alt=""></td>
+                <td>
+                <a href="{% url 'Admin:ReporterAccept' i.id %}">Accept/ <a href="{% url 'Admin:ReporterReject' i.id %}">Reject</a></td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+
+        <h1 align="center">Accepted Reporters</h1>
+         <table border="1" align="center">
+           
+            <tr>
+                <td>Sl.No</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>Gender</td>
+                <td>DOB</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Photo</td>
+                <td>Proof</td>
+                <td>Action</td>
+            </tr>
+           {% for i in accept %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.reporter_name}}</td>
+                <td>{{i.reporter_email}}</td>
+                <td>{{i.reporter_contact}}</td>
+                <td>{{i.reporter_gender}}</td>
+                <td>{{i.reporter_dob}}</td>
+                <td>{{i.reporter_address}}</td>
+                <td>{{i.place.district.district_name}}</td>
+                <td>{{i.place.place_name}}</td>
+                <td><img src="{{ i.reporter_photo.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.reporter_proof.url }}" width="100" alt=""></td>
+                <td><a href="{% url 'Admin:ReporterReject' i.id %}">Reject</a></td>
+            </tr>
+            
+            {% endfor %}
+        </table>
+
+        <h1 align="center">Rejected Reporters</h1>
+         <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>Gender</td>
+                <td>DOB</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Photo</td>
+                <td>Proof</td>
+                <td>Action</td>
+            </tr>
+            {% for i in reject %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.reporter_name}}</td>
+                <td>{{i.reporter_email}}</td>
+                <td>{{i.reporter_contact}}</td>
+                <td>{{i.reporter_gender}}</td>
+                <td>{{i.reporter_dob}}</td>
+                <td>{{i.reporter_address}}</td>
+                <td>{{i.place.district.district_name}}</td>
+                <td>{{i.place.place_name}}</td>
+                <td><img src="{{ i.reporter_photo.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.reporter_proof.url }}" width="100" alt=""></td>
+                <td>
+                <a href="{% url 'Admin:ReporterAccept' i.id %}">Accept</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

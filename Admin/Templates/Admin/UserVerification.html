@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Verification</title>
+</head>
+<body>
+    <form action="" method="post">
+         {% csrf_token %}
+        <table border="1" align="center"><h1 align="center">User Verification</h1>
+            <tr>
+                <td>Sl.No</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>Gender</td>
+                <td>DOB</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Photo</td>
+                <td>Proof</td>
+                <td>Previous Works / Certificates</td>
+                <td>Freelancer Type</td>
+                <td>Skills</td>
+                <td>Experience Level</td>
+                <td>Short Bio</td>
+                <td>Social Media / Work Link</td>
+                <td>Action</td>
+            </tr>
+            {% for i in pending %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.user_name}}</td>
+                <td>{{i.user_email}}</td>
+                <td>{{i.user_contact}}</td>
+                <td>{{i.user_gender}}</td>
+                <td>{{i.user_dob}}</td>
+                <td>{{i.user_address}}</td>
+                <td>{{i.place.district.district_name}}</td>
+                <td>{{i.place.place_name}}</td>
+                <td><img src="{{ i.user_photo.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.user_proof.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.user_work.url }}" width="100" alt=""></td>
+                <td>{{i.skill_type.freelancer_type.freelancer_type}}</td>
+                <td>{{i.skill_type.skill_type}}</td>
+                <td>{{i.user_level}}</td>
+                <td>{{i.user_bio}}</td>
+                <td>{{i.user_social}}</td>
+                <td><a href="{% url 'Admin:UserAccept' i.id %}">Accept/ <a href="{% url 'Admin:UserReject' i.id %}">Reject</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+         <h1 align="center">Accepted User</h1>
+         <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>Gender</td>
+                <td>DOB</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Photo</td>
+                <td>Proof</td>
+                <td>Previous Works / Certificates</td>
+                <td>Freelancer Type</td>
+                <td>Skills</td>
+                <td>Experience Level</td>
+                <td>Short Bio</td>
+                <td>Social Media / Work Link</td>
+                <td>Action</td>
+            </tr>
+            {% for i in accept %}
+            <tr>
+               <td>{{forloop.counter}}</td>
+                <td>{{i.user_name}}</td>
+                <td>{{i.user_email}}</td>
+                <td>{{i.user_contact}}</td>
+                <td>{{i.user_gender}}</td>
+                <td>{{i.user_dob}}</td>
+                <td>{{i.user_address}}</td>
+                <td>{{i.place.district.district_name}}</td>
+                <td>{{i.place.place_name}}</td>
+                <td><img src="{{ i.user_photo.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.user_proof.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.user_work.url }}" width="100" alt=""></td>
+                <td>{{i.skill_type.freelancer_type.freelancer_type}}</td>
+                <td>{{i.skill_type.skill_type}}</td>
+                <td>{{i.user_level}}</td>
+                <td>{{i.user_bio}}</td>
+                <td>{{i.user_social}}</td>
+                <td><a href="{% url 'Admin:UserReject' i.id %}">Reject</a></td>
+            </tr>
+            {% endfor %}
+         </table>
+         <h1 align="center">Rejected User</h1>
+         <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>Gender</td>
+                <td>DOB</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Photo</td>
+                <td>Proof</td>
+                <td>Previous Works / Certificates</td>
+                <td>Freelancer Type</td>
+                <td>Skills</td>
+                <td>Experience Level</td>
+                <td>Short Bio</td>
+                <td>Social Media / Work Link</td>
+                <td>Action</td>
+            </tr>
+            {% for i in reject %}
+            <tr>
+               <td>{{forloop.counter}}</td>
+                <td>{{i.user_name}}</td>
+                <td>{{i.user_email}}</td>
+                <td>{{i.user_contact}}</td>
+                <td>{{i.user_gender}}</td>
+                <td>{{i.user_dob}}</td>
+                <td>{{i.user_address}}</td>
+                <td>{{i.place.district.district_name}}</td>
+                <td>{{i.place.place_name}}</td>
+                <td><img src="{{ i.user_photo.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.user_proof.url }}" width="100" alt=""></td>
+                <td><img src="{{ i.user_work.url }}" width="100" alt=""></td>
+                <td>{{i.skill_type.freelancer_type.freelancer_type}}</td>
+                <td>{{i.skill_type.skill_type}}</td>
+                <td>{{i.user_level}}</td>
+                <td>{{i.user_bio}}</td>
+                <td>{{i.user_social}}</td>
+                <td><a href="{% url 'Admin:UserAccept' i.id %}">Accept</a></td>
+            </tr>
+            {% endfor %}
+         </table>
+    </form>
+</body>
+</html>

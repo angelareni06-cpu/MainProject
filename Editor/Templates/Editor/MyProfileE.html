@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%csrf_token %}
+        <table border="1" align="center">
+            <td colspan="2" align="center">
+                <img src= "{{editordata.editor_photo.url}}" width="300" height="300" alt="editor" >
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{editordata.editor_name}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{editordata.editor_email}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{editordata.editor_contact}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><a href="{% url 'Editor:EditProfile' %}">Edit Profile /  <a href="{% url 'Editor:ChangePassword' %}"> ChangePassword</a></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
