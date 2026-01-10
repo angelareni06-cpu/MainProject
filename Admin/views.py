@@ -303,7 +303,7 @@ def FPublishedNews(request):
         return render(request,'Guest/Login.html')     
 
 def ViewFiles(request,fid):
-    UploadF=tbl_uploadfiles.objects.filter(news=fid)
+    UploadF=tbl_uploadfiles.objects.filter(news=fid,upload_status=1)
     return render(request,'Admin/ViewFiles.html',{'UploadF':UploadF})
 
 def ViewComplaints(request):

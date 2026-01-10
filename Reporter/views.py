@@ -14,8 +14,6 @@ def Homepage(request):
     else:
         return render(request,'Guest/Login.html')    
     
-    
-
 def MyProfile(request):
     if "Rid" in request.session:
         reporterdata=tbl_reporter.objects.get(id=request.session["Rid"])
@@ -150,6 +148,24 @@ def clearchat(request):
     tbl_chat.objects.filter(Q(reporter_from=request.session["Rid"]) & Q(editor_to=request.GET.get("tid")) | (Q(editor_from=request.GET.get("tid")) & Q(reporter_to=request.session["Rid"]))).delete()
     return render(request,"Reporter/ClearChat.html",{"msg":"Chat Deleted Sucessfully...."})
 
+def EditNews(request,nid):
+    category=tbl_category.objects.all()
+    NewsData=tbl_news.objects.get(id=nid)
+    if request.method=='POST':
+        title=request.POST.get("txt_title")    
+        content=request.POST.get("txt_content")
+        image=request.FILES.get("file_image")
+        subcategory=tbl_subcategory.objects.get(id=request.POST.get("sel_subcategory"))
+
+        NewsData.news_title=title
+        NewsData.news_content=content
+        NewsData.news_image=image
+        NewsData.subcategory=subcategory
+        NewsData.save()
+        return render(request,'Reporter/EditNews.html',{'msg':'data inserted'})
+    else:
+        return render(request,'Reporter/EditNews.html',{'category':category,'NewsData':NewsData})      
+
 def Logout(request):
     del request.session["Rid"]       
-    return redirect("Guest:Login")        
+    return redirect("Guest:Login")      

@@ -9,6 +9,7 @@ urlpatterns = [
     path("ChangePassword/",views.ChangePassword,name="ChangePassword"),
 
     path("AddNews/",views.AddNews,name="AddNews"),
+    path("EditNews/<int:nid>",views.EditNews,name="EditNews"),
     path('delnews/<int:id>',views.delnews,name="delnews"),
 
     path('UploadFiles/<int:nid>',views.UploadFiles,name="UploadFiles"),

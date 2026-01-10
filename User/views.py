@@ -158,6 +158,25 @@ def clearchat(request):
     tbl_chat.objects.filter(Q(user_from=request.session["uid"]) & Q(editor_to=request.GET.get("tid")) | (Q(editor_from=request.GET.get("tid")) & Q(user_to=request.session["uid"]))).delete()
     return render(request,"User/ClearChat.html",{"msg":"Chat Deleted Sucessfully...."})
 
+
+def EditNews(request,fid):
+    category=tbl_category.objects.all()
+    NewsData=tbl_news.objects.get(id=fid)
+    if request.method=='POST':
+        title=request.POST.get("txt_title")    
+        content=request.POST.get("txt_content")
+        image=request.FILES.get("file_image")
+        subcategory=tbl_subcategory.objects.get(id=request.POST.get("sel_subcategory"))
+
+        NewsData.news_title=title
+        NewsData.news_content=content
+        NewsData.news_image=image
+        NewsData.subcategory=subcategory
+        NewsData.save()
+        return render(request,'User/EditNews.html',{'msg':'data inserted'})
+    else:
+        return render(request,'User/EditNews.html',{'category':category,'NewsData':NewsData})
+
 def Logout(request):
     del request.session["uid"]       
     return redirect("Guest:Login")     

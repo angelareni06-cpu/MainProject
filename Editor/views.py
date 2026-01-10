@@ -95,7 +95,20 @@ def NewsUpdatesR(request,nid):
 def ViewFiles(request,nid):
     reporterdata=tbl_reporter.objects.all()
     uploaddata=tbl_uploadfiles.objects.filter(news=nid)
-    return render(request,'Editor/ViewFiles.html',{'uploaddata':uploaddata})
+    return render(request,'Editor/ViewFiles.html',{'uploaddata':uploaddata,'nid':nid})
+
+def ViewRAccept(request,aid,nid):
+    acceptdata=tbl_uploadfiles.objects.get(id=aid)
+    acceptdata.upload_status=1
+    acceptdata.editor=tbl_editor.objects.get(id=request.session['Eid'])
+    acceptdata.save()
+    return redirect('Editor:ViewFiles',nid)
+
+def ViewRReject(request,rid,nid):
+    rejectdata=tbl_uploadfiles.objects.get(id=rid)
+    rejectdata.upload_status=2
+    rejectdata.save()
+    return redirect('Editor:ViewFiles',nid)   
 
 def chatpage(request,id):
     user  = tbl_user.objects.get(id=id)
@@ -116,6 +129,44 @@ def ajaxchatview(request):
 def clearchat(request):
     tbl_chat.objects.filter(Q(editor_from=request.session["aid"]) & Q(user_to=request.GET.get("tid")) | (Q(user_from=request.GET.get("tid")) & Q(editor_to=request.session["aid"]))).delete()
     return render(request,"Editor/ClearChat.html",{"msg":"Chat Deleted Sucessfully...."})
+
+def chatpager(request,id):
+    reporter  = tbl_reporter.objects.get(id=id)
+    return render(request,"Editor/ChatR.html",{"reporter":reporter})
+
+def ajaxchatr(request):
+    from_editor = tbl_editor.objects.get(id=request.session["Eid"])
+    to_reporter = tbl_reporter.objects.get(id=request.POST.get("tid"))
+    tbl_chat.objects.create(chat_content=request.POST.get("msg"),chat_time=datetime.now(),editor_from=from_editor,reporter_to=to_reporter,chat_file=request.FILES.get("file"))
+    return render(request,"Editor/ChatR.html")
+
+def ajaxchatviewr(request):
+    tid = request.GET.get("tid")
+    editor = tbl_editor.objects.get(id=request.session["Eid"])
+    chat_data = tbl_chat.objects.filter((Q(editor_from=editor) | Q(editor_to=editor)) & (Q(reporter_from=tid) | Q(reporter_to=tid))).order_by('chat_time')
+    return render(request,"Editor/ChatViewR.html",{"data":chat_data,"tid":int(tid)})
+
+def clearchatr(request):
+    tbl_chat.objects.filter(Q(editor_from=request.session["aid"]) & Q(reporter_to=request.GET.get("tid")) | (Q(reporter_from=request.GET.get("tid")) & Q(editor_to=request.session["aid"]))).delete()
+    return render(request,"Editor/ClearChat.html",{"msg":"Chat Deleted Sucessfully...."})  
+
+def PublishedNews(request):
+    if "Eid" in request.session:
+        reporterdata=tbl_reporter.objects.all()
+        publishdata=tbl_news.objects.all()
+        NewsData=tbl_news.objects.filter(news_status=3,reporter__in=reporterdata)
+        return render(request,'Editor/PublishedNews.html',{"NewsData": NewsData,'reporterdata':reporterdata})
+    else:
+        return render(request,'Guest/Login.html')   
+    
+def FPublishedNews(request):
+    if "Eid" in request.session:    
+        userdata=tbl_user.objects.all()
+        fpublishdata=tbl_news.objects.all()
+        NewsData=tbl_news.objects.filter(news_status=3,user__in=userdata)
+        return render(request,'Editor/FPublishedNews.html',{"Newsdata":NewsData,'userdata':userdata})
+    else:
+        return render(request,'Guest/Login.html')     
 
 def Logout(request):
     del request.session["Eid"]       

@@ -10,6 +10,7 @@ urlpatterns = [
     path("ChangePassword/",views.ChangePassword,name="ChangePassword"),
 
     path("UploadNews/",views.UploadNews,name="UploadNews"),
+    path("EditNews/<int:fid>",views.EditNews,name="EditNews"),
     path('delnews/<int:id>',views.delnews,name="delnews"),
     path('AjaxSubcategory/',views.AjaxSubcategory,name='AjaxSubcategory'),
 

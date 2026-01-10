@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditNewsUpload</title>
+</head>
+
+<body onload="">
+    <form action="" method="post" enctype="multipart/form-data">
+        {%csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>Title</td>
+                <td><input type="text" required name="txt_title" id="txt_title" value="{{NewsData.news_title}}"></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td><textarea name="txt_content" id="txt_content" value="" required>{{NewsData.news_content}}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input type="file" required name="file_image" id="file_image" value="">
+                    {% if NewsData.news_image %}
+                    <img src="{{NewsData.news_image.url}}" width="150" alt="">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td><select name="sel_category" id="sel_category" required>
+                        <option value="">---select---</option>
+                        {% for i in category %}
+                        <option {% if i.id == NewsData.subcategory.category.id %} selected {% endif %} value="{{i.id}}">
+                            {{i.category_name}}
+                        </option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Subcategory</td>
+                <td><select name="sel_subcategory" id="sel_subcategory" required  data-selected="{{ NewsData.subcategory.id }}">
+                        <option value="">---select---</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'Reporter:AddNews' %}";
+</script>
+{% endif %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    function loadSubcategory(cid, selectedSubcat = null) {
+        var ur = "{% url 'User:AjaxSubcategory' %}";
+
+        $.ajax({
+            url: ur,
+            data: { cid: cid },
+            success: function (data) {
+                $("#sel_subcategory").html(data);
+
+                if (selectedSubcat) {
+                    $("#sel_subcategory").val(selectedSubcat);
+                }
+            }
+        });
+    }
+
+    $("#sel_category").change(function () {
+        var cid = $(this).val();
+        loadSubcategory(cid);
+    });
+
+    $(document).ready(function () {
+        var cid = $("#sel_category").val();
+        var selectedSubcat = $("#sel_subcategory").data("selected");
+
+        if (cid) {
+            loadSubcategory(cid, selectedSubcat);
+        }
+    });
+</script>

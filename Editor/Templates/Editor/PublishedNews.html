@@ -19,7 +19,6 @@
                 <td>Subcategory</td>
                 <td>Date</td>
                 <td>Reporter Details</td>
-                <td>Action</td>
             </tr>
             {% for i in NewsData %}
             <tr>
@@ -31,7 +30,6 @@
                 <td>{{i.subcategory.subcategory_name}}</td>
                 <td>{{i.news_date}}</td>
                 <td>{{i.reporter.reporter_name}}</td>
-                <td><a href="{% url 'Admin:ViewFiles' i.id %}">View Files</a></td>
             </tr>
             {% endfor %}
         </table>
@@ -41,6 +39,6 @@
 {% if msg %}
 <script>
     alert("{{msg}}")
-    window.location="{% url 'Admin:PublishedNews' %}";
+    window.location="{% url 'Editor:PublishedNews' %}";
 </script>
 {% endif %}

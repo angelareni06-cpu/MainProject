@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PublishedNews</title>
+    <title>FreelancersPublishedNews</title>
 </head>
 <body>
-    <form action="" method="post">
+     <form action="" method="post">
         {%csrf_token %}
-        <h3 align="center">Reporter Published News</h3>
+        <h3 align="center">Freelancers Published News</h3>
         <table border="1" align="center">
             <tr>
                 <td>Sl.No</td>
@@ -18,10 +18,9 @@
                 <td>Category</td>
                 <td>Subcategory</td>
                 <td>Date</td>
-                <td>Reporter Details</td>
-                <td>Action</td>
+                <td>Freelancer Details</td>
             </tr>
-            {% for i in NewsData %}
+            {% for i in Newsdata %}
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{i.news_title}}</td>
@@ -30,17 +29,16 @@
                 <td>{{i.subcategory.category.category_name}}</td>
                 <td>{{i.subcategory.subcategory_name}}</td>
                 <td>{{i.news_date}}</td>
-                <td>{{i.reporter.reporter_name}}</td>
-                <td><a href="{% url 'Admin:ViewFiles' i.id %}">View Files</a></td>
+                <td>{{i.user.user_name}}</td>
             </tr>
             {% endfor %}
-        </table>
-    </form>
+        </table> 
+     </form>
 </body>
 </html>
 {% if msg %}
 <script>
     alert("{{msg}}")
-    window.location="{% url 'Admin:PublishedNews' %}";
+    window.location="{% url 'Editor:FPublishedNews' %}";
 </script>
 {% endif %}

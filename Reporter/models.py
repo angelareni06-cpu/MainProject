@@ -15,4 +15,5 @@ class tbl_news(models.Model):
 
 class tbl_uploadfiles(models.Model):
     upload_files=models.FileField(upload_to="Assets/news/")
+    upload_status=models.IntegerField(default=0)
     news=models.ForeignKey(tbl_news,on_delete=models.CASCADE)  

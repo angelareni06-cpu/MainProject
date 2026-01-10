@@ -19,6 +19,7 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{i.newsupdatesr_remarks}}</td>
                 <td><a href="{% url 'User:chatpage' i.editor.id %}">Chat</a></td>
+                <td><a href="{% url 'User:EditNews' i.news.id %}">Edit News</a></td>
             </tr>
             {% endfor %}
         </table>

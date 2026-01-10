@@ -36,6 +36,8 @@
                 <td><a href="{% url 'Editor:NewsUpdatesR' i.id %}">News Updates</a>
                     <a href="{% url 'Editor:ViewFiles' i.id %}"> View Files</a>
                     <a href="{% url 'Editor:PublishedNews' i.id %}">Publish</a>
+                    
+                     <a href="{% url 'Editor:chatpager' i.reporter.id %}">Chat</a>
                 </td>
             </tr>
             {% endfor %}
@@ -70,6 +72,8 @@
                 <td><a href="{% url 'Editor:NewsUpdatesR' i.id %}">News Updates</a>
                     <a href="{% url 'Editor:ViewFiles' i.id %}">View Files</a>
                     <a href="{% url 'Editor:FPublishedNews' i.id %}">Publish</a>
+
+                     <a href="{% url 'Editor:chatpage' i.user.id %}">Chat</a>
                 </td>
             </tr>
             {% endfor %}
