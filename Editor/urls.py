@@ -13,6 +13,7 @@ urlpatterns = [
     path('FPublishedNews/<int:fid>',views.FPublishedNews,name="FPublishedNews"),
 
     path('NewsUpdatesR/<int:nid>',views.NewsUpdatesR,name="NewsUpdatesR"),
+    path('delremarks/<int:nid>',views.delremarks,name="delremarks"),
     path('ViewFiles/<int:nid>',views.ViewFiles,name="ViewFiles"),
     path('ViewRAccept/<int:aid>/<int:nid>',views.ViewRAccept,name="ViewRAccept"),
     path('ViewRReject/<int:rid>/<int:nid>',views.ViewRReject,name="ViewRReject"),

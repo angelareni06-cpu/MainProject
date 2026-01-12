@@ -26,11 +26,10 @@
                 <td>Action</td>
             </tr>
             {% for i in NewsUpdatesR %}
-            {{i.news.user.id}}
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{i.newsupdatesr_remarks}}</td>
-                <td></td>
+                <td><a href="{% url 'Editor:delremarks' i.id %}">Delete</a></td>
             </tr>
             {% endfor %}
             </table>
