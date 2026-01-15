@@ -29,7 +29,7 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{i.newsupdatesr_remarks}}</td>
-                <td><a href="{% url 'Editor:delremarks' i.id %}">Delete</a></td>
+                <td><a href="{% url 'Editor:delremarks' i.id nid %}">Delete</a></td>
             </tr>
             {% endfor %}
             </table>

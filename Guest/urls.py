@@ -8,4 +8,5 @@ urlpatterns = [
     path('AjaxPlace/',views.AjaxPlace,name='ajaxplace'),
     path('AjaxSkilltype/',views.AjaxSkilltype,name='ajaxskilltype'),
     path('Reporter/',views.Reporter,name='Reporter'),
+    path('index/',views.index,name='index'),
 ]

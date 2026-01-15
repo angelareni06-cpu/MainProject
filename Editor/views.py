@@ -92,9 +92,9 @@ def NewsUpdatesR(request,nid):
     else:
         return render(request,'Editor/NewsUpdatesR.html',{'newsdata':newsdata,'NewsUpdatesR':NewsUpdatesR,'nid':nid})
     
-def delremarks(request,nid):
+def delremarks(request,did,nid):
     tbl_newsupdatesr.objects.get(id=nid).delete()
-    return redirect("Editor:NewsUpdatesR")     
+    return redirect("Editor:NewsUpdatesR",nid)     
 
 def ViewFiles(request,nid):
     reporterdata=tbl_reporter.objects.all()
