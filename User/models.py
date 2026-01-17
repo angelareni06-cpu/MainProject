@@ -15,8 +15,7 @@ class tbl_payment(models.Model):
     payment_date=models.DateField(auto_now_add=True)
     payment_status=models.IntegerField(default=0)
     payment_amount=models.CharField(max_length=50)
-    news=models.ForeignKey(tbl_news,on_delete=models.CASCADE)
-
+    news=models.ForeignKey(tbl_news,on_delete=models.CASCADE,related_name="payments")
 
 class tbl_chat(models.Model):
     chat_content = models.CharField(max_length=500)

@@ -154,7 +154,7 @@ def clearchatr(request):
     tbl_chat.objects.filter(Q(editor_from=request.session["aid"]) & Q(reporter_to=request.GET.get("tid")) | (Q(reporter_from=request.GET.get("tid")) & Q(editor_to=request.session["aid"]))).delete()
     return render(request,"Editor/ClearChat.html",{"msg":"Chat Deleted Sucessfully...."})  
 
-def PublishedNews(request):
+def ViewRNews(request):
     if "Eid" in request.session:
         reporterdata=tbl_reporter.objects.all()
         publishdata=tbl_news.objects.all()
@@ -163,7 +163,7 @@ def PublishedNews(request):
     else:
         return render(request,'Guest/Login.html')   
     
-def FPublishedNews(request):
+def ViewFNews(request):
     if "Eid" in request.session:    
         userdata=tbl_user.objects.all()
         fpublishdata=tbl_news.objects.all()

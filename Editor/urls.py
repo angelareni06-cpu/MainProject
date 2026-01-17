@@ -28,8 +28,8 @@ urlpatterns = [
     path('ajaxchatviewr/',views.ajaxchatviewr,name="ajaxchatviewr"),
     path('clearchatr/',views.clearchatr,name="clearchatr"),
 
-    path('PublishedNews/',views.PublishedNews,name="PublishedNews"),
-    path('FPublishedNews/',views.FPublishedNews,name="FPublishedNews"),
+    path('ViewRNews/',views.ViewRNews,name="ViewRNews"),
+    path('ViewFNews/',views.ViewFNews,name="ViewFNews"),
 
     path('Logout/',views.Logout,name='Logout'),
 ]

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyNews</title>
 </head>
+
 <body>
     <form action="" method="post" enctype="multipart/form-data">
         {%csrf_token %}
@@ -15,9 +17,9 @@
                 <td>Content</td>
                 <td>Image</td>
                 <td>Category</td>
+                <td>Subcategory</td>
                 <td>Date</td>
                 <td>Amount</td>
-                <td>Action</td>
             </tr>
             {% for i in newsdata %}
             <tr>
@@ -25,19 +27,26 @@
                 <td>{{i.news_title}}</td>
                 <td>{{i.news_content}}</td>
                 <td><img src="{{i.news_image.url}}" alt="" width="100" height="100" alt=""></td>
-                <td>{{i.category.category_name}}</td>
+                <td>{{i.subcategory.category.category_name}}</td>
+                <td>{{i.subcategory.subcategory_name}}</td>
                 <td>{{i.news_date}}</td>
-                <td>{{i.payment_amount}}</td>
-                <td></td>
+                <td>
+                    {% if i.payments.first %}
+                    {{ i.payments.first.payment_amount }}
+                    {% else %}
+                    Not Paid
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </table>
     </form>
 </body>
+
 </html>
 {% if msg %}
 <script>
     alert("{{msg}}")
-    window.location="{% url 'User:MyNews' %}";
+    window.location = "{% url 'User:MyNews' %}";
 </script>
 {% endif %}
