@@ -10,6 +10,8 @@ class tbl_complaint(models.Model):
     complaint_status=models.IntegerField(default=0)
     user_id=models.ForeignKey(tbl_user,on_delete=models.CASCADE,null=True)
     reporter_id=models.ForeignKey(tbl_reporter,on_delete=models.CASCADE,null=True)
+    verifier_id=models.ForeignKey(tbl_verifier,on_delete=models.CASCADE,null=True)
+    editor_id=models.ForeignKey(tbl_editor,on_delete=models.CASCADE,null=True)
 
 class tbl_payment(models.Model):
     payment_date=models.DateField(auto_now_add=True)

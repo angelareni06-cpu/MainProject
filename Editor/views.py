@@ -170,7 +170,25 @@ def ViewFNews(request):
         NewsData=tbl_news.objects.filter(news_status=3,user__in=userdata)
         return render(request,'Editor/FPublishedNews.html',{"Newsdata":NewsData,'userdata':userdata})
     else:
-        return render(request,'Guest/Login.html')     
+        return render(request,'Guest/Login.html')    
+
+def Complaint(request):
+    if "Eid" in request.session:
+        editordata=tbl_editor.objects.get(id=request.session["Eid"])
+        ComplaintData=tbl_complaint.objects.filter(editor_id=request.session["Eid"])
+        if request.method=='POST':  
+            title=request.POST.get("txt_title")
+            content=request.POST.get("txt_content")
+            tbl_complaint.objects.create(complaint_title=title,complaint_content=content,editor_id=editordata)     
+            return render(request,'Editor/Complaint.html',{'msg':'data inserted'}) 
+        else:
+            return render(request,'Editor/Complaint.html',{'editordata':editordata,'ComplaintData':ComplaintData})   
+    else:
+        return render(request,'Guest/Login.html') 
+
+def delcomplaint(request,id):
+    tbl_complaint.objects.get(id=id).delete()
+    return redirect("Editor:Complaint")            
 
 def Logout(request):
     del request.session["Eid"]       

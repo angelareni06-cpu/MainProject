@@ -28,6 +28,7 @@
             {% endfor %}
         </table>
     </form>
+
     <h3 align="center">Reporters Complaints</h3>
      <table border="1" align="center">
             <tr>
@@ -47,6 +48,48 @@
             </tr>
             {% endfor %}
     </table>
+
+     <h3 align="center">Verifiers Complaints</h3>
+     <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Verifier</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>Action</td>
+            </tr>
+            {% for i in complaintData %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.verifier_id.verifier_name}}</td>
+                <td>{{i.complaint_title}}</td>
+                <td>{{i.complaint_content}}</td>
+                <td><a href="{% url 'Admin:Reply' i.id %}">Reply</a></td>
+            </tr>
+            {% endfor %}
+    </table>
+
+    <h3 align="center">Editors Complaints</h3>
+     <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Editor</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>Action</td>
+            </tr>
+            {% for i in ComplaintData %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.editor_id.editor_name}}</td>
+                <td>{{i.complaint_title}}</td>
+                <td>{{i.complaint_content}}</td>
+                <td><a href="{% url 'Admin:Reply' i.id %}">Reply</a></td>
+            </tr>
+            {% endfor %}
+    </table>
+
+
 </body>
 </html>
 {% if msg %}

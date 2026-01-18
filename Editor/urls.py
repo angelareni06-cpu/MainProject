@@ -31,5 +31,8 @@ urlpatterns = [
     path('ViewRNews/',views.ViewRNews,name="ViewRNews"),
     path('ViewFNews/',views.ViewFNews,name="ViewFNews"),
 
+    path('Complaint/',views.Complaint,name="Complaint"),
+    path('delcomplaint/<int:id>',views.delcomplaint,name="delcomplaint"),
+
     path('Logout/',views.Logout,name='Logout'),
 ]

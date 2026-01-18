@@ -110,7 +110,7 @@ def ViewUpdates(request,nid):
     return render(request,'Reporter/ViewUpdates.html',{'news':newsdata,'updates':updatedata,'nid':nid})
 
 def Complaint(request):
-    if "rid" in request.session:
+    if "rid" not in request.session:
         reporterdata=tbl_reporter.objects.get(id=request.session["Rid"])
         complaintdata=tbl_complaint.objects.filter(reporter_id=request.session["Rid"])
         if request.method=='POST':

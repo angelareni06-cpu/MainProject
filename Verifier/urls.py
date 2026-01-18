@@ -16,5 +16,8 @@ urlpatterns = [
     path('ViewRAccept/<int:aid>',views.ViewRAccept,name="ViewRAccept"),
     path('ViewRReject/<int:rid>',views.ViewRReject,name="ViewRReject"),
 
+    path('Complaint/',views.Complaint,name="Complaint"),
+    path('delcomplaint/<int:id>',views.delcomplaint,name="delcomplaint"),
+
     path('Logout/',views.Logout,name='Logout'),
 ]

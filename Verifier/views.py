@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from Admin.models import *
 from Reporter.models import *
+from User.models import *
 # Create your views here.
 def Homepage(request):
     if "Vid" in request.session:
@@ -104,6 +105,24 @@ def ViewRReject(request,rid):
     rejectdata.news_status=2
     rejectdata.save()
     return redirect('Verifier:ViewNewsR')   
+
+def Complaint(request):
+    if "Vid" in request.session:
+        verifierData=tbl_verifier.objects.get(id=request.session["Vid"])
+        complaintData=tbl_complaint.objects.filter(verifier_id=request.session["Vid"])
+        if request.method=='POST':  
+            title=request.POST.get("txt_title")
+            content=request.POST.get("txt_content")
+            tbl_complaint.objects.create(complaint_title=title,complaint_content=content,verifier_id=verifierData)     
+            return render(request,'Verifier/Complaint.html',{'msg':'data inserted'}) 
+        else:
+            return render(request,'Verifier/Complaint.html',{'verifierData':verifierData,'complaintData':complaintData})   
+    else:
+        return render(request,'Guest/Login.html') 
+
+def delcomplaint(request,id):
+    tbl_complaint.objects.get(id=id).delete()
+    return redirect("Verifier:Complaint")           
 
 def Logout(request):
     del request.session["Vid"]       

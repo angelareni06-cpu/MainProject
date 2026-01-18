@@ -1575,12 +1575,23 @@
                                 <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" placeholder="example@gmail.com">
                                 <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Subscribe Now</button>
                             </div> -->
-                            <div class="col-lg-9">
-    <div class="d-flex position-relative rounded-pill overflow-hidden complaint-box">
-        <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" placeholder="Write your complaint here...">
-        <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Submit</button>
+                             <div class="col-lg-9 text-center">
+    <div class="p-4 rounded shadow-sm bg-light">
+        <p class="mb-3 text-dark fw-semibold fs-5">
+            ⚠️ Facing an issue or have a complaint?
+        </p>
+
+        <a href="{%  url 'Guest:Login' %}"
+           class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold">
+            Submit Your Complaint →
+        </a>
+
+        <p class="mt-2 text-muted small">
+            We value your feedback and take every complaint seriously.
+        </p>
     </div>
 </div>
+
 
                         </div>
                     </div>
@@ -1754,6 +1765,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiKey = "d17b01729f3a4a93a69165340261601";
 
     function loadWeather(lat, lon) {
+
+        // ---------- WEATHER (WeatherAPI) ----------
         fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`)
         .then(res => res.json())
         .then(data => {
@@ -1762,25 +1775,39 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("temp").innerText =
                 Math.round(data.current.temp_c) + "°C";
 
-            // Location
-            document.getElementById("location").innerText =
-                data.location.region + ", " + data.location.country
-
             // Date
             const today = new Date();
             document.getElementById("date").innerText =
                 today.toDateString();
 
-            // Time (initial call)
+            // Start time
             updateTime();
-
         })
         .catch(() => {
-            document.getElementById("location").innerText = "Weather unavailable";
+            document.getElementById("temp").innerText = "--°C";
+        });
+
+        // ---------- LOCATION (OpenStreetMap – Nominatim) ----------
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+        .then(res => res.json())
+        .then(data => {
+            const city =
+                data.address.city ||
+                data.address.town ||
+                data.address.village ||
+                data.address.state;
+
+            const country = data.address.country;
+
+            document.getElementById("location").innerText =
+                city + ", " + country;
+        })
+        .catch(() => {
+            document.getElementById("location").innerText = "Location unavailable";
         });
     }
 
-    // Live Time Function
+    // ---------- LIVE TIME ----------
     function updateTime() {
         const now = new Date();
         document.getElementById("time").innerText =
@@ -1791,10 +1818,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    // Update time every second
     setInterval(updateTime, 1000);
 
-    // Geolocation
+    // ---------- GEOLOCATION ----------
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             pos => loadWeather(pos.coords.latitude, pos.coords.longitude),
@@ -1806,6 +1832,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+
 
     </body>
 

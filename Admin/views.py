@@ -55,7 +55,11 @@ def District(request):
         data=tbl_district.objects.all()
         if request.method=='POST':
             district=request.POST.get("txt_district")  
-            tbl_district.objects.create(district_name=district)
+            checkdistrict = tbl_district.objects.filter(district_name=district).count()
+            if checkdistrict > 0:
+                return render(request,'Admin/District.html',{'msg':"District Already Exist"})
+            else:
+                tbl_district.objects.create(district_name=district)
             return render(request,'Admin/District.html',{'msg':'data inserted'})    
         else:
             return render(request,'Admin/District.html',{'district':data}) 
@@ -314,9 +318,13 @@ def ViewComplaints(request):
     if "aid" in request.session:
         userdata=tbl_user.objects.all()
         reporterdata=tbl_reporter.objects.all()
+        verifierData=tbl_verifier.objects.all()
+        editordata=tbl_editor.objects.all()
         complaintdata=tbl_complaint.objects.filter(user_id__in=userdata)
         Complaintdata=tbl_complaint.objects.filter(reporter_id__in=reporterdata)
-        return render(request,'Admin/ViewComplaints.html',{'complaintdata':complaintdata,'Complaintdata':Complaintdata}) 
+        complaintData=tbl_complaint.objects.filter(verifier_id__in=verifierData)
+        ComplaintData=tbl_complaint.objects.filter(editor_id__in=editordata)
+        return render(request,'Admin/ViewComplaints.html',{'complaintdata':complaintdata,'Complaintdata':Complaintdata,'complaintData':complaintData,'ComplaintData':ComplaintData}) 
     else:
         return render(request,'Guest/Login.html')     
            
