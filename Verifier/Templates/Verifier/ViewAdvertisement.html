@@ -22,7 +22,7 @@
                 <td>{{i.advertisement_title}}</td>
                 <td>{{i.advertisement_content}}</td>
                 <td>{{i.advertisement_file}}</td>
-                <td>{{i.advertisement.user_name}}</td>
+                <td>{{i.user.user_id}}</td>
                 <td>{% if i.advertisement_status == 0 %}
                     
                     <a href="{% url 'Verifier:AdvAccept' i.id %}">Accept/ <a href="{% url 'Verifier:AdvReject' i.id %}">Reject</a>
