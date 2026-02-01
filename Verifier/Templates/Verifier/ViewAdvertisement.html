@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Advertisement</title>
+</head>
+<body>
+    <form action="" method="post">
+        <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>File</td>
+                <td>User</td>
+                <td>Action</td>
+            </tr>
+            {% for i in Advdata%}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.advertisement_title}}</td>
+                <td>{{i.advertisement_content}}</td>
+                <td>{{i.advertisement_file}}</td>
+                <td>{{i.advertisement.user_name}}</td>
+                <td>{% if i.advertisement_status == 0 %}
+                    
+                    <a href="{% url 'Verifier:AdvAccept' i.id %}">Accept/ <a href="{% url 'Verifier:AdvReject' i.id %}">Reject</a>
+                    {% elif i.advertisement_status == 1 %}
+                    Accepted 
+                    <a href="{% url 'Verifier:AdvReject' i.id %}">Reject</a>
+
+                    {% elif i.advertisement_status == 2 %}
+                    Rejected
+                    <a href="{% url 'Verifier:AdvAccept' i.id %}">Accept</a>
+                    {% endif  %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Verifier:ViewAdvertisement' %}";
+</script>
+{% endif %}

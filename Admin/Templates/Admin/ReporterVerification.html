@@ -117,3 +117,9 @@
     </form>
 </body>
 </html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Admin:reporterverification' %}";
+</script>
+{% endif %}

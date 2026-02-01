@@ -56,6 +56,9 @@ urlpatterns = [
 
    path('Payment/<int:fid>',views.Payment,name="Payment"),
 
+   path('Plan/',views.Plan,name="Plan"),
+   path('delplan/<int:id>',views.delplan,name="delplan"),
+
    path('Logout/',views.Logout,name="Logout"),
 
 ]

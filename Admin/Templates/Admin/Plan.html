@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id="txt_name"></td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td><input type="text" name="txt_duration" id="txt_duration"></td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td><input type="text" name="txt_amount" id="txt_amount"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <table border="1" align="center">
+        <tr>
+            <td>Sl.No</td>
+            <td>Name</td>
+            <td>Duration</td>
+            <td>Amount</td>
+            <td>Action</td>
+        </tr>
+        {% for i in plandata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.plan_name}}</td>
+            <td>{{i.plan_duration}}</td>
+            <td>{{i.plan_amount}}</td>
+            <td><a href="{% url 'Admin:delplan' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Admin:Plan' %}";
+</script>
+{% endif %}

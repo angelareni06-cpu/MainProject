@@ -124,6 +124,27 @@ def delcomplaint(request,id):
     tbl_complaint.objects.get(id=id).delete()
     return redirect("Verifier:Complaint")           
 
+def ViewAdvertisement(request):
+    if "Vid" in request.session:
+        Advdata=tbl_advertisement.objects.all()
+        
+        return render(request,'Verifier/ViewAdvertisement.html',{'Advdata':Advdata})
+    else:
+        return render(request,'Guest/Login.html')     
+
+def AdvAccept(request,aid):
+    acceptdata=tbl_advertisement.objects.get(id=aid)
+    acceptdata.advertisement_status=1
+    acceptdata.verifier=tbl_verifier.objects.get(id=request.session['Vid'])
+    acceptdata.save()
+    return redirect('Verifier:ViewAdvertisement')
+
+def AdvReject(request,rid):
+    rejectdata=tbl_advertisement.objects.get(id=rid)
+    rejectdata.advertisement_status=2
+    rejectdata.save()
+    return redirect('Verifier:ViewAdvertisement')
+
 def Logout(request):
     del request.session["Vid"]       
     return redirect("Guest:Login")          

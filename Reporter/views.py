@@ -10,7 +10,8 @@ from django.db.models import Q
 
 def Homepage(request):
     if "Rid" in request.session:
-        return render(request,'Reporter/HomePage.html')
+        rep=tbl_reporter.objects.get(id=request.session['Rid'])
+        return render(request,'Reporter/HomePage.html',{"rep":rep})
     else:
         return render(request,'Guest/Login.html')    
     
@@ -126,6 +127,14 @@ def Complaint(request):
 def delcomplaint(request,id):
     tbl_complaint.objects.get(id=id).delete()  
     return redirect("Reporter:Complaint")   
+
+def MyNews(request):
+    if "Rid" in request.session:
+        newsdata = tbl_news.objects.filter(reporter=request.session['Rid'],news_status__gte=1).exclude(news_status=2)
+        
+        return render(request,'Reporter/MyNews.html',{'newsdata':newsdata})
+    else:
+        return render(request,'Guest/Login.html')
 
 def chatpage(request,id):
     editor  = tbl_editor.objects.get(id=id)

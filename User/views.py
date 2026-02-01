@@ -176,6 +176,28 @@ def EditNews(request,fid):
         return render(request,'User/EditNews.html',{'msg':'data inserted'})
     else:
         return render(request,'User/EditNews.html',{'category':category,'NewsData':NewsData})
+    
+def Advertisement(request):
+    if "uid" in request.session:
+        userdata=tbl_user.objects.get(id=request.session["uid"])
+        verifierdata=tbl_verifier.objects.get(id=request.session["Vid"])
+        editordata=tbl_editor.objects.get(id=request.session["Eid"])
+        Advdata=tbl_advertisement.objects.all()
+        if request.method=='POST':
+            title=request.POST.get("txt_title")  
+            content=request.POST.get("txt_content") 
+            file=request.POST.get("txt_file") 
+            tbl_advertisement.objects.create(advertisement_title=title,advertisement_content=content,advertisement_file=file,user_id=userdata,verifier_id=verifierdata,editor_id=editordata)
+            return render(request,'User/Advertisement.html',{'msg':'data inserted'})    
+        else:
+            return render(request,'User/Advertisement.html',{'Advdata':Advdata,'userdata':userdata}) 
+    else:
+        return render(request,'Guest/Login.html')
+
+def delAdv(request,id):
+    tbl_advertisement.objects.get(id=id).delete()
+    return redirect("User:Advertisement") 
+
 
 def Logout(request):
     del request.session["uid"]       

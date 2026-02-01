@@ -29,5 +29,8 @@ urlpatterns = [
     path('ajaxchatview/',views.ajaxchatview,name="ajaxchatview"),
     path('clearchat/',views.clearchat,name="clearchat"),
 
+    path('Advertisement/',views.Advertisement,name="Advertisement"),
+    path('delAdv/<int:id>',views.delAdv,name="delAdv"),
+
     path('Logout/',views.Logout,name='Logout'),
 ]

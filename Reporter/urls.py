@@ -25,5 +25,7 @@ urlpatterns = [
     path('ajaxchatview/',views.ajaxchatview,name="ajaxchatview"),
     path('clearchat/',views.clearchat,name="clearchat"),
 
+    path('MyNews/',views.MyNews,name="Mynews"),
+
     path('Logout/',views.Logout,name='Logout'),
 ]

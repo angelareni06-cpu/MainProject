@@ -1,6 +1,7 @@
 from django.db import models
 from Guest.models import *
 from Reporter.models import *
+from Admin.models import *
 # Create your models here.
 class tbl_complaint(models.Model):
     complaint_title=models.CharField(max_length=50)
@@ -29,3 +30,20 @@ class tbl_chat(models.Model):
     editor_from = models.ForeignKey(tbl_editor,on_delete=models.CASCADE,related_name="editor_from",null=True)
     reporter_to = models.ForeignKey(tbl_reporter,on_delete=models.CASCADE,related_name="reporter_to",null=True)
     reporter_from = models.ForeignKey(tbl_reporter,on_delete=models.CASCADE,related_name="reporter_from",null=True)
+
+class tbl_subscription(models.Model):
+    subscription_date=models.CharField(max_length=50)
+    subscription_status=models.IntegerField(default=0)
+    subscription_enddate=models.CharField(max_length=50)  
+    user_id=models.ForeignKey(tbl_user,on_delete=models.CASCADE)
+    plan_id=models.ForeignKey(tbl_plan,on_delete=models.CASCADE)
+
+class tbl_advertisement(models.Model):
+    advertisement_date=models.DateField(auto_now_add=True)  
+    advertisement_status=models.IntegerField(default=0)
+    advertisement_file=models.FileField(upload_to="Assets/news/")
+    advertisement_title=models.CharField(max_length=50)
+    advertisement_content=models.CharField(max_length=50)
+    user_id=models.ForeignKey(tbl_user,on_delete=models.CASCADE)
+    verifier_id=models.ForeignKey(tbl_verifier,on_delete=models.CASCADE)
+    editor_id=models.ForeignKey(tbl_editor,on_delete=models.CASCADE)

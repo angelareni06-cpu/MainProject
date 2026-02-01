@@ -348,6 +348,24 @@ def Payment(request,fid):
         return render(request,'Admin/Payment.html',{'msg':'data inserted'})
     else:
         return render(request,'Admin/Payment.html',{'newsdata':newsdata})
+    
+def Plan(request):
+    if "aid" in request.session:
+        plandata=tbl_plan.objects.all()
+        if request.method=='POST':
+            name=request.POST.get("txt_name")  
+            duration=request.POST.get("txt_duration")  
+            amount=request.POST.get("txt_amount")  
+            tbl_plan.objects.create(plan_name=name,plan_duration=duration,plan_amount=amount)
+            return render(request,'Admin/Plan.html',{'msg':'data inserted'})    
+        else:
+            return render(request,'Admin/Plan.html',{'plandata':plandata}) 
+    else:
+        return render(request,'Guest/Login.html')
+
+def delplan(request,id):
+    tbl_plan.objects.get(id=id).delete()
+    return redirect("Admin:Plan") 
 
 def Logout(request):
     del request.session["aid"]       
