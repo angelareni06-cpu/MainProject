@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewAdvertisement</title>
+</head>
+<body>
+    <form action="" method="post">
+        <table border="1" align="center">
+            <tr>
+                <td>Sl.No</td>
+                <td>Title</td>
+                <td>Content</td>
+                <td>File</td>
+                <td>User</td>
+                <td>Action</td>
+            </tr>
+            {% for i in advdata %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.advertisement_title}}</td>
+                <td>{{i.advertisement_content}}</td>
+                <td>{{i.advertisement_file}}</td>
+                <td>{{i.user_id.user_name}}</td>
+                <td><a href="{% url 'Editor:Confirm' i.id %}">Publish</a></td>
+                {% endfor %}
+                </table>
+            </form>
+        </body>
+    </html>
+{% if msg %}
+<script>
+alert("{{msg}}")
+window.location="{% url 'Editor:ViewAdvertisement' %}";
+</script>
+{% endif %}

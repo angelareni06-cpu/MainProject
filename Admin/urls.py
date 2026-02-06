@@ -59,6 +59,9 @@ urlpatterns = [
    path('Plan/',views.Plan,name="Plan"),
    path('delplan/<int:id>',views.delplan,name="delplan"),
 
+   path('Advertisement/',views.Advertisement,name="Advertisement"),
+   path('PaymentAdvertisement/<int:id>',views.PaymentAdvertisement,name="PaymentAdvertisement"),
+
    path('Logout/',views.Logout,name="Logout"),
 
 ]

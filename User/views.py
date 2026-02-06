@@ -180,14 +180,12 @@ def EditNews(request,fid):
 def Advertisement(request):
     if "uid" in request.session:
         userdata=tbl_user.objects.get(id=request.session["uid"])
-        verifierdata=tbl_verifier.objects.get(id=request.session["Vid"])
-        editordata=tbl_editor.objects.get(id=request.session["Eid"])
         Advdata=tbl_advertisement.objects.all()
         if request.method=='POST':
             title=request.POST.get("txt_title")  
             content=request.POST.get("txt_content") 
             file=request.POST.get("txt_file") 
-            tbl_advertisement.objects.create(advertisement_title=title,advertisement_content=content,advertisement_file=file,user_id=userdata,verifier_id=verifierdata,editor_id=editordata)
+            tbl_advertisement.objects.create(advertisement_title=title,advertisement_content=content,advertisement_file=file,user_id=userdata)
             return render(request,'User/Advertisement.html',{'msg':'data inserted'})    
         else:
             return render(request,'User/Advertisement.html',{'Advdata':Advdata,'userdata':userdata}) 
@@ -197,6 +195,14 @@ def Advertisement(request):
 def delAdv(request,id):
     tbl_advertisement.objects.get(id=id).delete()
     return redirect("User:Advertisement") 
+
+def MyAdvertisement(request):
+    if "uid" in request.session:
+        # paymentdata=tbl_payment.objects.filter(news__user=request.session['uid'])
+       AdvData = tbl_advertisement.objects.filter(user_id=request.session['uid'],advertisement_status__gte=3).exclude(advertisement_status=1) 
+       return render(request,'User/MyAdvertisement.html',{'AdvData':AdvData})
+    else:
+       return render(request,'Guest/Login.html')
 
 
 def Logout(request):

@@ -32,5 +32,7 @@ urlpatterns = [
     path('Advertisement/',views.Advertisement,name="Advertisement"),
     path('delAdv/<int:id>',views.delAdv,name="delAdv"),
 
+    path('MyAdvertisement/',views.MyAdvertisement,name="MyAdvertisement"),
+
     path('Logout/',views.Logout,name='Logout'),
 ]

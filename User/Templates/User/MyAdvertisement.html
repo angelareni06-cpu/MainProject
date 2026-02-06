@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Advertisement</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%csrf_token %}
+        <table border="1" align="center">
+       <tr>
+            <td>Sl.No</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>File</td>
+            <td>Amount</td>
+        </tr>
+        {% for i in AdvData %}
+        <tr>
+            <td>{{forloop.counter}}</td> 
+            <td>{{i.advertisement_title}}</td>
+            <td>{{i.advertisement_content}}</td>
+            <td>{{i.advertisement_file}}</td>
+            <td>
+                    {% if i.payments.first %}
+                    {{ i.payments.first.payment_amount }}
+                    {% else %}
+                    Not Paid
+                    {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </form>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'User:MyAdvertisement' %}";
+</script>
+{% endif %}

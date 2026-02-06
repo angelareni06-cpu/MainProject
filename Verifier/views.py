@@ -126,8 +126,7 @@ def delcomplaint(request,id):
 
 def ViewAdvertisement(request):
     if "Vid" in request.session:
-        freelancer = tbl_user.objects.all()
-        Advdata=tbl_advertisement.objects.filter(user_name__in=freelancer)
+        Advdata=tbl_advertisement.objects.all()
         return render(request,'Verifier/ViewAdvertisement.html',{'Advdata':Advdata})
     else:
         return render(request,'Guest/Login.html')     
@@ -135,7 +134,7 @@ def ViewAdvertisement(request):
 def AdvAccept(request,aid):
     acceptdata=tbl_advertisement.objects.get(id=aid)
     acceptdata.advertisement_status=1
-    acceptdata.verifier=tbl_verifier.objects.get(id=request.session['Vid'])
+    acceptdata.verifier_id=tbl_verifier.objects.get(id=request.session['Vid'])
     acceptdata.save()
     return redirect('Verifier:ViewAdvertisement')
 

@@ -14,11 +14,22 @@ class tbl_complaint(models.Model):
     verifier_id=models.ForeignKey(tbl_verifier,on_delete=models.CASCADE,null=True)
     editor_id=models.ForeignKey(tbl_editor,on_delete=models.CASCADE,null=True)
 
+class tbl_advertisement(models.Model):
+    advertisement_date=models.DateField(auto_now_add=True)  
+    advertisement_status=models.IntegerField(default=0)
+    advertisement_file=models.FileField(upload_to="Assets/news/")
+    advertisement_title=models.CharField(max_length=50)
+    advertisement_content=models.CharField(max_length=50)
+    user_id=models.ForeignKey(tbl_user,on_delete=models.CASCADE)
+    verifier_id=models.ForeignKey(tbl_verifier,on_delete=models.CASCADE,null=True)
+    editor_id=models.ForeignKey(tbl_editor,on_delete=models.CASCADE,null=True)    
+
 class tbl_payment(models.Model):
     payment_date=models.DateField(auto_now_add=True)
     payment_status=models.IntegerField(default=0)
     payment_amount=models.CharField(max_length=50)
-    news=models.ForeignKey(tbl_news,on_delete=models.CASCADE,related_name="payments")
+    news=models.ForeignKey(tbl_news,on_delete=models.CASCADE,related_name="payments",null=True)
+    advertise_id=models.ForeignKey(tbl_advertisement,on_delete=models.CASCADE,null=True)
 
 class tbl_chat(models.Model):
     chat_content = models.CharField(max_length=500)
@@ -37,13 +48,3 @@ class tbl_subscription(models.Model):
     subscription_enddate=models.CharField(max_length=50)  
     user_id=models.ForeignKey(tbl_user,on_delete=models.CASCADE)
     plan_id=models.ForeignKey(tbl_plan,on_delete=models.CASCADE)
-
-class tbl_advertisement(models.Model):
-    advertisement_date=models.DateField(auto_now_add=True)  
-    advertisement_status=models.IntegerField(default=0)
-    advertisement_file=models.FileField(upload_to="Assets/news/")
-    advertisement_title=models.CharField(max_length=50)
-    advertisement_content=models.CharField(max_length=50)
-    user_id=models.ForeignKey(tbl_user,on_delete=models.CASCADE)
-    verifier_id=models.ForeignKey(tbl_verifier,on_delete=models.CASCADE)
-    editor_id=models.ForeignKey(tbl_editor,on_delete=models.CASCADE)

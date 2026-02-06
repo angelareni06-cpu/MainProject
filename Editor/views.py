@@ -188,7 +188,21 @@ def Complaint(request):
 
 def delcomplaint(request,id):
     tbl_complaint.objects.get(id=id).delete()
-    return redirect("Editor:Complaint")            
+    return redirect("Editor:Complaint")  
+
+def ViewAdvertisement(request):
+    if "Eid" in request.session:
+        advdata=tbl_advertisement.objects.filter(advertisement_status=1)
+        return render(request,'Editor/ViewAdvertisement.html',{'advdata':advdata})
+    else:
+        return render(request,'Guest/Login.html')   
+
+def Confirm(request,fid):
+    Confirm=tbl_advertisement.objects.get(id=fid)     
+    Confirm.advertisement_status=3
+    Confirm.editor_id=tbl_editor.objects.get(id=request.session['Eid'])
+    Confirm.save()
+    return redirect('Editor:ViewAdvertisement')                 
 
 def Logout(request):
     del request.session["Eid"]       

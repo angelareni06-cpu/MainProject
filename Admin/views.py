@@ -367,6 +367,22 @@ def delplan(request,id):
     tbl_plan.objects.get(id=id).delete()
     return redirect("Admin:Plan") 
 
+def Advertisement(request):
+    if "aid" in request.session:
+        Advertisement=tbl_advertisement.objects.filter(advertisement_status=3)
+        return render(request,'Admin/Advertisement.html',{"Advertisement": Advertisement})
+    else:
+        return render(request,'Guest/Login.html') 
+    
+def PaymentAdvertisement(request,id):
+    advertise_id=tbl_advertisement.objects.get(id=id)
+    if request.method=='POST':
+        amount=request.POST.get("txt_amount")  
+        tbl_payment.objects.create(payment_amount=amount,advertise_id=advertise_id,payment_status=2)
+        return render(request,'Admin/Payment.html',{'msg1':'Payment Amount Added'})
+    else:
+        return render(request,'Admin/Payment.html',{'advertise':advertise_id})   
+
 def Logout(request):
     del request.session["aid"]       
     return redirect("Guest:Login") 
