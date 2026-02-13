@@ -113,7 +113,6 @@
                         <div class="collapse navbar-collapse bg-light py-3" id="navbarCollapse">
                        <div class="navbar-nav mx-auto border-top">
                         <a href="#section_home" class="nav-item nav-link active">Home</a>
-                        <a href="{% url 'Guest:Reporter' %}" class="nav-item nav-link active">Reporter Registration</a>
                         <a href="#section_about" class="nav-item nav-link" >About PressLink</a>
                         <a href="#section_works" class="nav-item nav-link">How PressLink Works</a>
                         <a href="#section_contact" class="nav-item nav-link">Contact Us</a>
@@ -164,12 +163,52 @@
         <!-- Modal Search End -->
 
 <!-- Features Start -->
-<div class="container-fluid features mb-5">
+<!-- <div class="container-fluid features mb-5">
     <div class="container py-5">
-        <div class="row g-4">
+        <div class="row g-4">  -->
+
+            <div class="container py-5">
+    <div class="text-center mb-4">
+        <h2>Join With Us</h2>
+        <p>Select your role to register</p>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <!-- Reporter Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-lg border-0 p-4">
+                <div class="mb-3">
+                    <i class="bi bi-mic-fill text-primary" style="font-size:60px;"></i>
+                </div>
+                <h4>Reporter</h4>
+                <p>Share real stories and build trusted journalism.</p>
+                <a href="{% url 'Guest:Reporter' %}" class="btn btn-primary">
+                    Register as Reporter
+                </a>
+            </div>
+        </div>
+
+        <!-- Freelancer Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-lg border-0 p-4">
+                <div class="mb-3">
+                    <i class="bi bi-pencil-square text-success" style="font-size:60px;"></i>
+                </div>
+                <h4>Freelancer</h4>
+                <p>Create ads and collaborate with reporters easily.</p>
+                <a href="{% url 'Guest:UserRegistration' %}" class="btn btn-success">
+                    Register as Freelancer
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
             <!-- Local News -->
-            <div class="col-md-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="row g-4 align-items-center features-item">
                     <div class="col-4">
                         <div class="position-relative"
@@ -183,10 +222,10 @@
                         <h6 class="mb-1">Updates from your surrounding regions.</h6>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Politics -->
-            <div class="col-md-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="row g-4 align-items-center features-item">
                     <div class="col-4">
                         <div class="position-relative"
@@ -200,10 +239,10 @@
                         <h6 class="mb-1">Government, policy, and public affairs.</h6>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Education -->
-            <div class="col-md-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="row g-4 align-items-center features-item">
                     <div class="col-4">
                         <div class="position-relative"
@@ -217,10 +256,10 @@
                         <h6 class="mb-1">Schools, colleges, and learning updates.</h6>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Sports -->
-            <div class="col-md-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="row g-4 align-items-center features-item">
                     <div class="col-4">
                         <div class="position-relative"
@@ -238,7 +277,7 @@
 
         </div>
     </div>
-</div>
+</div> -->
 <!-- Features End -->
 
 
