@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Success</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.success-card {
+    background: #ffffff;
+    width: 400px;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.success-icon {
+    width: 90px;
+    height: 90px;
+    background: #1cc88a;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    color: white;
+}
+
+.success-card h1 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.success-card p {
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.payment-box {
+    background: #f8f9fc;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.payment-box span {
+    display: block;
+    font-size: 14px;
+    color: #555;
+}
+
+.status {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 6px 15px;
+    background: #1cc88a;
+    color: white;
+    font-size: 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body onload="redirectHome()">
+
+<div class="success-card">
+    
+    <div class="success-icon">✔</div>
+    
+    <h1>Payment Successful</h1>
+    <p>Your transaction has been completed successfully.</p>
+    
+    <div class="payment-box">
+        <span><strong>Payment Method:</strong> Credit / Debit Card</span>
+        <span><strong>Transaction ID:</strong> #{{ transaction_id }}</span>
+    </div>
+    
+    <div class="status">COMPLETED</div>
+</div>
+
+<script>
+function redirectHome() {
+    setTimeout(function(){
+        window.location.href = "{% url 'Admin:HomePage' %}";
+    }, 5000); // Redirect after 5 seconds
+}
+</script>
+
+</body>
+</html>

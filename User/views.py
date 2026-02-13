@@ -204,6 +204,22 @@ def MyAdvertisement(request):
     else:
        return render(request,'Guest/Login.html')
 
+def Payment(request,pid):
+    data=tbl_payment.objects.get(id=pid)
+    amt=data.payment_amount
+    if request.method=='POST':
+        data.payment_status=3
+        data.save()
+        return redirect("User:loader")
+    else:
+        return render(request,'User/Payment.html',{'total':amt})
+
+def loader(request):
+    return render(request,"User/Loader.html")
+
+def paymentsuc(request):
+    return render(request,"User/Payment_suc.html")
+
 
 def Logout(request):
     del request.session["uid"]       

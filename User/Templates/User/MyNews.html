@@ -30,13 +30,17 @@
                 <td>{{i.subcategory.category.category_name}}</td>
                 <td>{{i.subcategory.subcategory_name}}</td>
                 <td>{{i.news_date}}</td>
-                <td>
-                    {% if i.payments.first %}
-                    {{ i.payments.first.payment_amount }}
+                <td> {% with payment=i.tbl_payment_set.first %}
+                    {% if payment and payment.payment_status == 2 %}
+                        <a href="{% url 'User:Payment' payment.id  %}">Payment</a>
+                    {% elif payment and payment.payment_status == 3 %}
+                    Payment Completed
                     {% else %}
-                    Not Paid
+                        Not Paid
                     {% endif %}
-                </td>
+                {% endwith %}
+            <td><a href="{% url 'User:chatpage' i.editor.id %}">Chat</a></td>
+            </td>
             </tr>
             {% endfor %}
         </table>

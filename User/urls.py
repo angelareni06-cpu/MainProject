@@ -34,5 +34,10 @@ urlpatterns = [
 
     path('MyAdvertisement/',views.MyAdvertisement,name="MyAdvertisement"),
 
+    path('Payment/<int:pid>/',views.Payment,name='Payment'),
+    path('loader/',views.loader,name="loader"),
+    path('paymentsuc/',views.paymentsuc,name="paymentsuc"),
+
+    
     path('Logout/',views.Logout,name='Logout'),
 ]

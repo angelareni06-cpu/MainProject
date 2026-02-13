@@ -382,6 +382,22 @@ def PaymentAdvertisement(request,id):
         return render(request,'Admin/Payment.html',{'msg1':'Payment Amount Added'})
     else:
         return render(request,'Admin/Payment.html',{'advertise':advertise_id})   
+    
+def Payment(request,pid):
+    data=tbl_payment.objects.get(id=pid)
+    amt=data.payment_amount
+    if request.method=='POST':
+        data.payment_status=3
+        data.save()
+        return redirect("Admin:loader")
+    else:
+        return render(request,'Admin/Payment2.html',{'total':amt})
+
+def loader(request):
+    return render(request,"Admin/Loader.html")
+
+def paymentsuc(request):
+    return render(request,"Admin/Payment_suc.html")
 
 def Logout(request):
     del request.session["aid"]       

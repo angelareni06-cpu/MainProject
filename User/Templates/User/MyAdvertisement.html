@@ -23,11 +23,15 @@
             <td>{{i.advertisement_content}}</td>
             <td>{{i.advertisement_file}}</td>
             <td>
-                    {% if i.payments.first %}
-                    {{ i.payments.first.payment_amount }}
+                {% with payment=i.tbl_payment_set.first %}
+                    {% if payment and payment.payment_status == 2 %}
+                        <a href="{% url 'User:Payment' payment.id  %}">Payment</a>
+                    {% elif payment and payment.payment_status == 3 %}
+                    Payment Completed
                     {% else %}
-                    Not Paid
+                        Not Paid
                     {% endif %}
+                {% endwith %}
             </td>
         </tr>
         {% endfor %}

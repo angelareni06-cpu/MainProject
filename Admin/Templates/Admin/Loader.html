@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processing Payment</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+}
+
+/* Glass Card */
+.loader-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    padding: 50px 60px;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Spinner */
+.spinner {
+    width: 70px;
+    height: 70px;
+    border: 6px solid rgba(255,255,255,0.3);
+    border-top: 6px solid #ffffff;
+    border-radius: 50%;
+    margin: 0 auto 25px auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader-card h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.loader-card p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Animated dots */
+.dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0% { content: ''; }
+    33% { content: '.'; }
+    66% { content: '..'; }
+    100% { content: '...'; }
+}
+</style>
+</head>
+
+<body onload="redirectPage()">
+
+<div class="loader-card">
+    <div class="spinner"></div>
+    <h1>Processing Payment<span class="dots"></span></h1>
+    <p>Please wait while we confirm your transaction.</p>
+</div>
+
+<script>
+function redirectPage() {
+    setTimeout(function(){
+        window.location.href = "{% url 'Admin:paymentsuc' %}";
+    }, 5000); // 5 seconds
+}
+</script>
+
+</body>
+</html>

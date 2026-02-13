@@ -20,6 +20,7 @@
                 <td>Date</td>
                 <td>Freelancer Details</td>
                 <td>Action</td>
+                <td>Amount</td>
             </tr>
             {% for i in Newsdata %}
             <tr>
@@ -31,8 +32,9 @@
                 <td>{{i.subcategory.subcategory_name}}</td>
                 <td>{{i.news_date}}</td>
                 <td>{{i.user.user_name}}</td>
-                <td><a href="{% url 'Admin:ViewFiles' i.id %}">View Files</a>
-                    <a href="{% url 'Admin:Payment' i.id %}">Payment</a></td>
+                <td><a href="{% url 'Admin:ViewFiles' i.id %}">View Files</a></td>
+
+               <td><a href="{% url 'Admin:Payment' i.id %}">Payment</a></td>
             </tr>
             {% endfor %}
         </table> 
