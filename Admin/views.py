@@ -18,12 +18,13 @@ def AdminRegistration(request):
         if request.method=='POST':
             name=request.POST.get("txt_name")
             email=request.POST.get("txt_email")
+            photo=request.FILES.get("file_photo")
             password=request.POST.get("txt_password")
             checkemail = tbl_admin.objects.filter(admin_email=email).count()
             if checkemail > 0:
                 return render(request,'Admin/AdminRegistration.html',{'msg':"Email Already Exist"})
             else:
-                tbl_admin.objects.create(admin_name=name,admin_email=email,admin_password=password)
+                tbl_admin.objects.create(admin_name=name,admin_email=email,admin_photo=photo,admin_password=password)
             return render(request,'Admin/AdminRegistration.html',{'msg':'data inserted'})
         else:
             return render(request,'Admin/AdminRegistration.html',{'AdminRegistration':data})

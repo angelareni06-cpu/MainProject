@@ -22,7 +22,7 @@ class tbl_advertisement(models.Model):
     advertisement_content=models.CharField(max_length=50)
     user_id=models.ForeignKey(tbl_user,on_delete=models.CASCADE)
     verifier_id=models.ForeignKey(tbl_verifier,on_delete=models.CASCADE,null=True)
-    editor_id=models.ForeignKey(tbl_editor,on_delete=models.CASCADE,null=True)    
+    editor_id=models.ForeignKey(tbl_editor,on_delete=models.CASCADE,null=True)  
 
 class tbl_payment(models.Model):
     payment_date=models.DateField(auto_now_add=True)
@@ -41,6 +41,8 @@ class tbl_chat(models.Model):
     editor_from = models.ForeignKey(tbl_editor,on_delete=models.CASCADE,related_name="editor_from",null=True)
     reporter_to = models.ForeignKey(tbl_reporter,on_delete=models.CASCADE,related_name="reporter_to",null=True)
     reporter_from = models.ForeignKey(tbl_reporter,on_delete=models.CASCADE,related_name="reporter_from",null=True)
+    admin_to = models.ForeignKey(tbl_admin,on_delete=models.CASCADE,related_name="admin_to",null=True)
+    admin_from = models.ForeignKey(tbl_admin,on_delete=models.CASCADE,related_name="admin_from",null=True)
 
 class tbl_subscription(models.Model):
     subscription_date=models.CharField(max_length=50)
